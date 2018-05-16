@@ -1,0 +1,88 @@
+
+ 
+ <div class="Bar">
+    <span  style="text-align:center;
+   
+    font-size: 28px;">Customer Profile</span>
+  </div>
+
+
+<form class="full-width" #CompanyForm="ngForm" >
+
+  <!-- Select Companies -->
+  <div class="full-width">
+    <mat-form-field class="component-search-size">
+      <mat-select  placeholder="Select Company Name" 
+                   ngModel name="SelectCompanyName"    
+                   #SelectCompanyName="ngModel" 
+                   (selectionChange)="showCompany(SelectCompanyName.value)" >
+            <div *ngFor="let company of companies "  >
+          <mat-option value= {{company.id}}   > {{company.comp_NAME}} </mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+<!--  <div class="MainDiv">  -->
+  <!-- Company Name Control -->
+  <div class="full-width">
+    <mat-form-field class="component-size">
+        <input ngModel required  name="CompanyName"    #CompanyName="ngModel" 
+               matInput placeholder="Comapny Name"    
+               [(ngModel)]="company.comp_NAME"            >
+    </mat-form-field>
+    <span  *ngIf="!CompanyName.valid && CompanyName.touched  ">
+    <label class="ErrorMessage" 
+          *ngIf="CompanyName.errors.required">     Company Name is required
+    </label>   
+  </span>
+  </div>
+
+   <!-- Password Control -->
+  <div class="full-width">
+    <mat-form-field class="component-size">
+      <input  matInput [type]="changePasswordContrilType()" placeholder="Password" 
+              name ="Password"  #Password = "ngModel"  [(ngModel)]="company.password">
+    </mat-form-field>
+    <input  checked type="checkbox" ngModel name="showpswd"    #showpswd="ngModel"  
+            [(ngModel)]="showPassword"  >Show Password<br>
+  </div>
+
+  <!-- Email Control -->
+  <div class="full-width">
+    <mat-form-field class="component-size">
+      <input  ngModel name="Email"    #Email="ngModel"  
+              matInput placeholder="Email" [(ngModel)]="company.email" 
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+    </mat-form-field>
+  </div>
+  <span  *ngIf="!Email.valid && Email.touched  ">
+    <label class="ErrorMessage">Email is not valid(Exa: aaAA@yahoo.com)</label>   
+  </span>
+ 
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div>
+    <h5>{{formStatus}}</h5>
+
+  </div>
+  <!-- Buttons Bar -->
+  <div class="Bar" >
+      <button (click)=" save(CompanyForm.valid)  " style="float:right" mat-raised-button color="basic"><img src="assets/save.png" ></button>
+      <button (click) =" clearControls()  ; SelectCompanyName.reset() ; getAllCompanies()  " style="float:right;margin-right:10px;" mat-raised-button color="basic"   ><img src="assets/newPage.png" ></button>  
+      <button (click) ="removeCompany(CompanyName.valid) " style="float:left;" mat-raised-button color="basic"><img src="assets/Trash.png" ></button>
+  </div>
+
+  <br>
+
+  <div [style.background-color]="statusColor"  >
+  <h4>{{StatusText}}    </h4>  
+</div>  
+  
+</form>
+

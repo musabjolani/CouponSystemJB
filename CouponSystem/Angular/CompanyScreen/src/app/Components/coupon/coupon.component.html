@@ -1,0 +1,151 @@
+
+
+ 
+ <div class="Bar">
+  <span  style="text-align:center;font-size: 28px;">Cuopon Profile</span>
+</div>
+
+
+
+<form class="full-width" #CouponForm="ngForm" >
+
+<br>
+<br>
+<br>
+  <!-- big -->
+  <div style="height:300px" >
+    <div style="float:left;width:60%" >
+  
+     
+
+      <!-- Coupon Title Control -->
+      <div class="full-width">
+        <div style="float:left;width:30%">
+          <mat-form-field class="component-size">
+            <input ngModel required  name="title"    #title="ngModel" 
+             matInput placeholder="Title"    
+             [(ngModel)]="coupon.title"  >
+          </mat-form-field>
+          <span  *ngIf="!title.valid && title.touched  ">
+            <label class="ErrorMessage" *ngIf="title.errors.required">Coupon title is required</label>   
+          </span>
+        </div>
+        <div style="float:left;width:200px;height:100px"></div>    <!-- Separator -->
+  
+
+        <!--Coupon amount -->
+        <div style="float:left;width:30% ">
+          <mat-form-field class="component-number-size">
+            <input  type="number" matInput  placeholder="Amount" 
+              name ="Amount"  #Amount = "ngModel" 
+               [(ngModel)]="coupon.amount">
+          </mat-form-field>
+        </div>
+      </div>
+
+<br>
+<br>
+<br>
+<br>
+      <!-- Coupons type -->
+      <div class="full-width">
+        <div style="float:left;width:30%">
+          <mat-form-field class="component-size">
+          <mat-select  placeholder="Coupon type" 
+                 ngModel name="SelectCouponType"    
+                 #SelectCouponType="ngModel" 
+                 [(ngModel)]="coupon.type"
+                  >
+          
+          <mat-option value= "CAMPING"   > CAMPING </mat-option>
+          <mat-option value= "ELECTRICITY"   > ELECTRICITY </mat-option>
+          <mat-option value= "FOOD"   > FOOD </mat-option>
+          <mat-option value= "HEALTH"   > HEALTH </mat-option>
+          <mat-option value= "RESTAURANT"   > RESTAURANT </mat-option>
+          <mat-option value= "SPORTS"   > SPORTS </mat-option>
+          <mat-option value= "TRAVELLING"   > TRAVELLING </mat-option>
+          </mat-select>
+          </mat-form-field>
+        </div>
+        <div style="float:left;width:200px;height:100px"></div>        <!-- Separator -->
+
+        <!--Coupon Price -->
+        <div style="float:left;width:30%">
+          <mat-form-field class="component-number-size">
+            <input  type="text" matInput  placeholder="Price" 
+                    name ="Price"  #Price = "ngModel" 
+                    pattern="[0-9]*\.*[0-9]" [(ngModel)]="coupon.price">
+          </mat-form-field>
+
+        </div>
+        <span  *ngIf="!Price.valid && Price.touched  ">
+          <label class="ErrorMessage">Only Numbers are valid</label>   
+        </span>
+      </div>
+    </div>
+    <div style="float:left;width:40%;height:300px;" >
+      
+      <!-- Coupon Image -->
+      <p style="color:grey">Image File</p>
+      <div style="float:left;height:150px;width:100%">
+        <img  #Image style="float:left;width:120px;height:120px" [src]="coupon.image" *ngIf="coupon.image"     >
+      </div>
+      <input #Input type="file"  accept="image/gif, image/jpeg, image/png" (change)="showPreviewImage($event)">
+      <button type="button"  (click)="clearFile()">clear file</button>
+    </div>
+  </div>
+
+   <!--Coupon Start Date -->
+  <div  class="full-width">
+    <div style="float:left;width:30%">
+    <mat-form-field class="component-size">
+      <input  type="date" matInput  placeholder="Start Date" 
+            name ="StartDate"  #StartDate = "ngModel"  [(ngModel)]="coupon.start_DATE">
+    </mat-form-field>
+    <label class="ErrorMessage" 
+           *ngIf="StartDate.value > EndDate.value">    Start Date must be before End Date
+    </label>   
+  </div>
+ 
+
+  <div style="float:left;width:200px;height:100px">  </div>      <!-- Separator -->
+
+  <!--Coupon End Date -->
+  <div style="float:left;width:30% ">
+    <mat-form-field class="component-size">
+      <input  type="date" matInput  placeholder="End Date" 
+            name ="EndDate"  #EndDate = "ngModel"  [(ngModel)]="coupon.end_DATE">
+    </mat-form-field>
+    <label class="ErrorMessage" 
+          *ngIf="StartDate.value > EndDate.value">    Start Date must be before End Date
+    </label>   
+  </div>
+</div>
+
+
+
+
+<!--Coupon Message -->
+<div class="full-width">
+  <mat-form-field class="component-message-size ">
+    <textarea  type="text" matInput  placeholder="Message" 
+              name ="Message"  #Message = "ngModel"  [(ngModel)]="coupon.message">
+    </textarea>
+  </mat-form-field>
+</div>
+
+<div [style.background-color]="statusColor" >
+  <h4>{{StatusText}}    </h4>  
+</div>  
+
+<!-- Buttons Bar-->
+<div class="Bar" >
+    <button (click)=" save(CouponForm.valid)  " style="float:right" mat-raised-button color="basic"><img src="assets/save.png" ></button>
+    <button (click) =" clearControls()  ; SelectCouponTitle.reset() ; getAllCoupons()  " style="float:right;margin-right:10px;" mat-raised-button color="basic"   ><img src="assets/newPage.png" ></button>  
+    <button (click) ="removeCoupon(CouponForm.valid) " style="float:left;" mat-raised-button color="basic"><img src="assets/Trash.png" ></button>
+</div>
+
+
+
+</form>
+

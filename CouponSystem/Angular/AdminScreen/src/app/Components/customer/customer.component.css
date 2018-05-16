@@ -1,0 +1,42 @@
+
+.Bar
+{
+  background: #a9c4ce;
+  width:100%;
+  height:50px
+}
+
+.component-size {
+    
+    width: 350px;
+  
+  }
+  
+  
+.component-search-size {
+  
+  width: 420px;
+
+}
+
+.full-width {
+    width: 100%;
+    
+  }
+
+  button
+  {
+    margin-top: 5px
+  }
+  .MainDiv{
+    width: 100%;
+    height: 400px
+  }
+  
+  .ErrorMessage
+  {
+    font-family: sans-serif, Helvetica, ;
+    font-size: 14px;
+    color:red;
+   
+  }

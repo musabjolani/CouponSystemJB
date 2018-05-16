@@ -1,0 +1,67 @@
+
+<div class="Bar">
+  <span  style="text-align:center;
+ 
+  font-size: 28px;">Customer Profile</span>
+</div>
+
+
+<form class="full-width" #CompanyForm="ngForm" >
+
+  <!--  <div class="MainDiv">  -->
+  <!-- Company Name Control -->
+  <div class="full-width">
+    <mat-form-field class="component-size">
+      <input ngModel required  name="CompanyName"    #CompanyName="ngModel" 
+             matInput placeholder="Comapny Name"    
+             [(ngModel)]="company.comp_NAME"            >
+    </mat-form-field>
+    <span  *ngIf="!CompanyName.valid && CompanyName.touched  ">
+    <label class="ErrorMessage" 
+          *ngIf="CompanyName.errors.required">     Company Name is required
+    </label>   
+    </span>
+  </div>
+
+  <!-- Password Control -->
+  <div class="full-width">
+    <mat-form-field class="component-size">
+      <input  matInput [type]="changePasswordContrilType()" placeholder="Password" 
+            name ="Password"  #Password = "ngModel"  [(ngModel)]="company.password">
+    </mat-form-field>
+    <input  checked type="checkbox" ngModel name="showpswd"    #showpswd="ngModel"  
+          [(ngModel)]="showPassword"  >Show Password<br>
+  </div>
+
+  <!-- Email Control -->
+  <div class="full-width">
+    <mat-form-field class="component-size">
+     <input  ngModel name="Email"    #Email="ngModel"  
+            matInput placeholder="Email" [(ngModel)]="company.email" 
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+  </mat-form-field>
+  </div>
+  <span  *ngIf="!Email.valid && Email.touched  ">
+  <label class="ErrorMessage">Email is not valid(Exa: aaAA@yahoo.com)</label>   
+  </span>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <!-- Buttons Bar -->
+  <div class="Bar" >
+    <button (click)=" save(CompanyForm.valid)  " style="float:right" mat-raised-button color="basic"><img src="assets/save.png" ></button>
+  </div>
+
+  <br>
+
+  <div [style.background-color]="statusColor"  >
+    <h4>{{StatusText}}    </h4>  
+  </div>  
+
+</form>
+

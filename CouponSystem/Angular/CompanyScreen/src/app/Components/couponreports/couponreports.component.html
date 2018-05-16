@@ -1,0 +1,120 @@
+
+
+<!-- Main -->
+<div  style="width:100%;height:250px">
+
+  <!-- right Side div-->
+  <div style="float:left;width:30%;height:220px">
+    <label>Filtered By</label>
+    <br>
+    <br>
+    <!-- Radio Buttons -->
+    <mat-radio-group>
+      <mat-radio-button #RBNoFilter value="FNoFilter"  [checked]="true" 
+                        (click)="EnableDisableFilters(RBNoFilter.value)" >No Filter</mat-radio-button>
+      <br>
+      <br>
+      <mat-radio-button #RBType value="FType"  
+                       (click)="EnableDisableFilters(RBType.value)" 
+                        >Type</mat-radio-button>
+      <br>
+      <br>
+      <br>
+      <mat-radio-button #RBDate value="FDate" (click)="EnableDisableFilters(RBDate.value)" >End Date</mat-radio-button>
+      <br>
+      <br>
+      <br>
+      <mat-radio-button #RBPrice value="FPrice" (click)="EnableDisableFilters(RBPrice.value)"                       >Price</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <!-- left Side div-->
+  <div style="float:left;width:70%;height:220px">
+  <br>
+  <br>
+  <br>
+     <!-- Select Coupons -->
+    <mat-form-field style="width:200px">
+      <mat-select  placeholder="Coupon type" 
+             ngModel name="SelectCouponTypeFilter"    
+             #SelectCouponTypeFilter="ngModel" [disabled]="TypeDisabled" 
+             [(ngModel)]="coupon.type"
+            >
+      
+      <mat-option value= "CAMPING"   > CAMPING </mat-option>
+      <mat-option value= "ELECTRICITY"   > ELECTRICITY </mat-option>
+      <mat-option value= "FOOD"   > FOOD </mat-option>
+      <mat-option value= "HEALTH"   > HEALTH </mat-option>
+      <mat-option value= "RESTAURANT"   > RESTAURANT </mat-option>
+      <mat-option value= "SPORTS"   > SPORTS </mat-option>
+      <mat-option value= "TRAVELLING"   > TRAVELLING </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <!--Coupon End Date -->
+  
+        
+          <mat-form-field style="width:200px">
+            <input  type="date" matInput  placeholder="Start Date" 
+            name ="EndDateFilter"   
+            #EndDateFilter = "ngModel" [disabled]="EndDateDisabled"  [(ngModel)]="coupon.end_DATE">
+          </mat-form-field>
+       
+        
+  <br>
+   <!--Coupon Price -->
+  <mat-form-field style="width:200px">
+      <input  type="text" matInput  placeholder="Price" 
+             ngModel name ="PriceFilter"  #PriceFilter = "ngModel" 
+              pattern="[0-9]*\.*[0-9]" [disabled]="PriceDisabled" 
+              [(ngModel)]="coupon.price" >
+    </mat-form-field> 
+   <span  *ngIf="!PriceFilter.valid && PriceFilter.touched  ">
+    <label class="ErrorMessage">Only Numbers are valid</label>   
+   </span>
+    </div>
+</div>
+
+
+<button style="float:right;width:100px" (click)="LoadTable()" ><img src="assets/Search.png" ></button>
+<div style="height:700px">
+ <!-- Data Table  -->
+ <mat-table #table [dataSource]="dataSource">
+  
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+        <mat-cell *matCellDef="let element" > {{element.title}} </mat-cell>
+      </ng-container>
+  
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+      </ng-container>
+  
+      <!-- Start Date Column -->
+      <ng-container matColumnDef="start_DATE">
+        <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.start_DATE}} </mat-cell>
+      </ng-container>
+  
+      <!-- End Date Column -->
+      <ng-container matColumnDef="end_DATE">
+        <mat-header-cell *matHeaderCellDef> End Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.end_DATE}} </mat-cell>
+      </ng-container>
+  
+       <!-- End Date Column -->
+       <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showSelectedCoupon(row.id)"></mat-row>
+
+
+         
+    </mat-table>
+
+  </div>

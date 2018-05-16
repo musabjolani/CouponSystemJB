@@ -1,0 +1,6 @@
+.headerStyle{
+    height: 80px;
+    font: normal normal normal 15px/1.4em anton,sans-serif;
+    color: #181818;
+    background: linear-gradient(to bottom right,#bde 50%,#1BB1DF)
+}

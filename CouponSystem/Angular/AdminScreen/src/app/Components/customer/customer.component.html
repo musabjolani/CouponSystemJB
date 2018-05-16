@@ -1,0 +1,70 @@
+
+<form class="full-width" #CustomerForm="ngForm" >
+  
+    <!-- Select Customers -->
+    <div class="full-width">
+      <mat-form-field class="component-search-size">
+        <mat-select  placeholder="Select Customer Name" 
+                     ngModel name="SelectCustomerName"    
+                     #SelectCustomerName="ngModel" 
+                     (selectionChange)="showCustomer(SelectCustomerName.value)" >
+          <div *ngFor="let customer of customers "  >
+            <mat-option value= {{customer.id}}   > {{customer.cust_NAME}} </mat-option>
+          </div>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <!-- Customer Name Control -->
+    <div class="full-width">
+      <mat-form-field class="component-size">
+          <input ngModel required  name="CustomerName"    #CustomerName="ngModel" 
+                 matInput placeholder="Customer Name"    
+                 [(ngModel)]="customer.cust_NAME"            >
+      </mat-form-field>
+      <span  *ngIf="!CustomerName.valid && CustomerName.touched  ">
+      <label class="ErrorMessage" 
+            *ngIf="CustomerName.errors.required">     Customer Name is required
+      </label>   
+    </span>
+    </div>
+  
+    
+    <!-- Password Control -->
+  <div class="full-width">
+    <mat-form-field class="component-size">
+      <input  matInput [type]="changePasswordContrilType()" placeholder="Password" 
+              name ="Password"  #Password = "ngModel"  [(ngModel)]="customer.password">
+    </mat-form-field>
+    <input  checked type="checkbox" ngModel name="showpswd"    #showpswd="ngModel"  
+            [(ngModel)]="showPassword"  >Show Password<br>
+  </div>
+   
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    <div>
+      <h5>{{formStatus}}</h5>
+  
+    </div>
+    <!-- Buttons Bar -->
+    <div class="Bar" >
+        <button (click)=" save(CustomerForm.valid)  " style="float:right" mat-raised-button color="basic"><img src="assets/save.png" ></button>
+        <button (click) =" clearControls()  ; SelectCustomerName.reset() ; getAllCustomers()  " style="float:right;margin-right:10px;" mat-raised-button color="basic"   ><img src="assets/newPage.png" ></button>  
+        <button (click) ="removeCustomer(CustomerName.valid) " style="float:left;" mat-raised-button color="basic"><img src="assets/Trash.png" ></button>
+    </div>
+  
+    <br>
+  
+    <div [style.background-color]="statusColor"  >
+    <h4>{{StatusText}}    </h4>  
+  </div>  
+    
+  </form>
+   
+  
+  

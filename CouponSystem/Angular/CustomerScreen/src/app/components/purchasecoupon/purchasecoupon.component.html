@@ -1,0 +1,68 @@
+
+
+
+<!-- Main -->
+<div  style="width:100%;height:25px">
+  
+    
+  </div>
+  
+  
+  <button style="float:right;width:100px" (click)="LoadTable()" ><img src="assets/Search.png" ></button>
+  <div style="height:700px">
+   <!-- Data Table  -->
+  
+   <mat-table #table [dataSource]="dataSource">
+  
+
+    <ng-container matColumnDef="check">
+      <mat-header-cell *matHeaderCellDef> Checked </mat-header-cell>
+     
+        <mat-cell *matCellDef="let element" >
+        <mat-checkbox [(ngModel)]="element.check" >Checked </mat-checkbox>  
+      </mat-cell>            
+    </ng-container> 
+          <!-- Title Column -->
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+          <mat-cell *matCellDef="let element" > {{element.title}} </mat-cell>
+        </ng-container>
+    
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+        </ng-container>
+    
+        <!-- Start Date Column -->
+        <ng-container matColumnDef="start_DATE">
+          <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.start_DATE}} </mat-cell>
+        </ng-container>
+    
+        <!-- End Date Column -->
+        <ng-container matColumnDef="end_DATE">
+          <mat-header-cell *matHeaderCellDef> End Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.end_DATE}} </mat-cell>
+        </ng-container>
+    
+         <!-- End Date Column -->
+         <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  
+  
+           
+      </mat-table>
+  
+
+      <button style="float:right;width:100px" (click)="purchaseCoupon()" >Purchase selected Coupons<img src="assets/OK.png" ></button>
+    </div>
+
+    <div [style.background-color]="statusColor"  >
+      <h4>{{StatusText}}    </h4>  
+    </div>  
